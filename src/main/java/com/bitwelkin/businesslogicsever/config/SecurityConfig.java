@@ -2,6 +2,7 @@ package com.bitwelkin.businesslogicsever.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,6 +15,7 @@ import com.bitwelkin.businesslogicsever.authentication.filter.JwtAuthenticationF
 import com.bitwelkin.businesslogicsever.authentication.provider.OtpAuthenticationProvider;
 import com.bitwelkin.businesslogicsever.authentication.provider.UsernamePasswordAuthenticationProvider;
 
+@Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -31,13 +33,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	@Bean(name = BeanIds.AUTHENTICATION_MANAGER)
 	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
+	    return super.authenticationManagerBean();
 	}
 
 	@Override
-	protected void configure(AuthenticationManagerBuilder auth) {
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(otpAuthenticationProvider)
 				.authenticationProvider(usernamePasswordAuthenticationProvider);
+		
 	}
 
 	@Override
